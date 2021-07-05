@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Request Test</title>
+  <meta charset="UTF-8">
+  <!-- vue -->
+  <script src="./lib/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="./lib/index.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="./lib/index.css">
+  <!-- jQuery -->
+  <script src="./lib/jquery-3.6.0.js"></script>
+  <!-- axios -->
+  <script src="./lib/axios.js"></script>
+</head>
+<body>
+  <div id="app">
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="GET 请求 - Query String Parameters" name="1">
+        <div>
+          <el-button type="primary" @click="getForDefault">GET - Default</el-button>
+          <el-button type="primary" @click="getForDefaultModel">GET - Default Model</el-button>
+          <el-button type="info" @click="getForRequestParam">GET - RequestParam</el-button>
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="POST 请求 - Request Payload & Query String Parameters" name="2">
+        <div>
+          <el-button type="danger" @click="postJsonForDefaultModel">POST - Default Model</el-button>
+          <el-button type="danger" @click="postJsonForDefaultMap">POST - Default Map</el-button>
+          <el-button type="primary" @click="postJsonForRequestBodyMap">POST - RequestBody Map</el-button>
+          <el-button type="primary" @click="postJsonForRequestBodyModel">POST - RequestBody Model</el-button>
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="POST 请求 - Form Data & Query String Parameters" name="3">
+        <div>
+          <el-button type="primary" @click="postFormForDefault">POST - Default</el-button>
+          <el-button type="primary" @click="postFormForDefaultModel">POST - Default Model</el-button>
+          <el-button type="danger" @click="postFormForDefaultMap">POST - Default Map</el-button>
+        </div>
+      </el-collapse-item>
+    </el-collapse>
+    <div>
+      {{resquestType}}
+      <br>
+      {{response}}
+    </div>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        activeName: '1',
+        resquestType: '',
+        response: ''
+      }
+    },
+    methods: {
+      // GET
+      getForDefault() {
+        // $.ajax({
+        //   url: "http://localhost:8080/http/requestMatch/getForDefault",
+        //   data: {
+        //     param: 'test'
+        //   },
+        //   success: (data, status, opts) => {
+        //     this.response = data
+        //   }
+        // })
+        this.resquestType = 'getForDefault'
+        this.response = ''
+        axios.get('http://localhost:8080/http/requestMatch/getForDefault?query=from_Url', {
+          params: {
+            query: 'fromParam'
+          }
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      getForDefaultModel() {
+        this.resquestType = 'getForDefaultModel'
+        this.response = ''
+        axios.get('http://localhost:8080/http/requestMatch/getForDefaultModel?query=from_Url', {
+          params: {
+            query: 'fromParam'
+          }
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      getForRequestParam() {
+        this.resquestType = 'getForRequestParam'
+        this.response = ''
+        axios.get('http://localhost:8080/http/requestMatch/getForRequestParam?query=from_Url', {
+          params: {
+            query: 'fromParam'
+          }
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      // POST JSON
+      postJsonForDefaultModel() {
+        this.resquestType = 'postJsonForDefaultModel'
+        this.response = ''
+        axios.post('http://localhost:8080/http/requestMatch/postJsonForDefaultModel?param=from_Url&query=from_Url', {
+          param: 'from_Request_Payload',
+          query: 'from_Request_Payload'
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      postJsonForDefaultMap() {
+        this.resquestType = 'postJsonForDefaultMap'
+        this.response = ''
+        axios.post('http://localhost:8080/http/requestMatch/postJsonForDefaultMap?param=from_Url&query=from_Url', {
+          param: 'from_Request_Payload',
+          query: 'from_Request_Payload'
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      postJsonForRequestBodyMap() {
+        this.resquestType = 'postJsonForRequestBodyMap'
+        this.response = ''
+        axios.post('http://localhost:8080/http/requestMatch/postJsonForRequestBodyMap?param=from_Url&query=from_Url', {
+          param: 'from_Request_Payload',
+          query: 'from_Request_Payload'
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      postJsonForRequestBodyModel() {
+        this.resquestType = 'postJsonForRequestBodyModel'
+        this.response = ''
+        axios.post('http://localhost:8080/http/requestMatch/postJsonForRequestBodyModel?param=from_Url&query=from_Url', {
+          param: 'from_Request_Payload',
+          query: 'from_Request_Payload'
+        }, {
+          emulateJSON: true
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      // POST Form
+      postFormForDefault() {
+        this.resquestType = 'postFormForDefault'
+        this.response = ''
+        const params = new URLSearchParams();
+        params.append('param', 'From formData');
+        params.append('query', 'From formData');
+        axios.post('http://localhost:8080/http/requestMatch/postFormForDefault?param=from_Url&query=from_Url', params, {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' }
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      postFormForDefaultModel() {
+        this.resquestType = 'postFormForDefaultModel'
+        this.response = ''
+        const params = new URLSearchParams();
+        params.append('param', 'From formData');
+        params.append('query', 'From formData');
+        axios.post('http://localhost:8080/http/requestMatch/postFormForDefaultModel?param=from_Url&query=from_Url', params, {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' }
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      },
+      postFormForDefaultMap() {
+        this.resquestType = 'postFormForDefaultMap'
+        this.response = ''
+        const params = new URLSearchParams();
+        params.append('param', 'From formData');
+        params.append('query', 'From formData');
+        axios.post('http://localhost:8080/http/requestMatch/postFormForDefaultMap?param=from_Url&query=from_Url', params, {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' }
+        })
+        .then(res => {
+          this.response = res.data
+        })
+      }
+    }
+  })
+</script>
+</html>
