@@ -7,4 +7,18 @@ server:
   servlet:
     context-path: /http
 
+# 可在 WebMvcConfigurer 的 addResourceHandlers 中配置
+# addResourceHandlers 优先度更高
+# 默认 /**
+#spring.mvc.static-path-pattern: /page/**
+# 路径首尾的 / 可省略
+#spring.resources.static-locations: classpath:/static/views/
+# 路径尾部的 / 不可省略
+#spring.resources.static-locations: file:D:/
 
+
+# 可在 WebMvcConfigurer 的 configureViewResolvers 中配置
+# configureViewResolvers 优先度更高
+spring.mvc.view:
+#  prefix: "/views/"
+  suffix: ".html"

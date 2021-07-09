@@ -1,16 +1,21 @@
 package com.example.http.controller;
 
 import com.example.http.model.FormModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
 @RequestMapping("requestMatch")
 @RestController
-@CrossOrigin
+//@CrossOrigin // 可在 WebMvcConfigurer 的 addCorsMappings 中配置
 public class RequestMatchController {
+
+    @RequestMapping
+    public ModelAndView requestMatch() {
+        ModelAndView modelAndView = new ModelAndView("views/requestMatch");
+        return modelAndView;
+    }
 
     /**
      * GET
