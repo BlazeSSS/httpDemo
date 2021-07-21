@@ -18,13 +18,26 @@
 <div id="app">
   <el-button type="primary" @click="toRequestMatch">To RequestMatch</el-button>
   <hr>
-  <el-button type="primary" @click="getFileInfo">file Info</el-button>
-  <br>
-  <a href="/http/download">download 缓存至内存</a>
-  <br>
-  <a href="/http/download2">download 直接写入硬盘</a>
-  <br>
-  <a href="/http/download3">download 断点续传</a>
+  <el-row>
+    <el-col :span="12">
+      <div style="border-right: 1px solid; padding: 3px">
+        <span>RestTemplate</span>
+        <br>
+        <el-button type="primary" @click="getFileInfo">File Info</el-button>
+        <br>
+        <a href="/http/download">download 缓存至内存</a>
+        <br>
+        <a href="/http/download2">download 直接写入硬盘</a>
+        <br>
+        <a href="/http/download3">download 断点续传</a>
+      </div>
+    </el-col>
+    <el-col :span="12">
+      <div style="padding: 3px">
+        <span>WebClient</span>
+      </div>
+    </el-col>
+  </el-row>
   <hr>
   <div>
     <p v-for="(value, key) in fileInfo">{{key}}: {{value}}</p>

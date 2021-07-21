@@ -6,8 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
-@RequestMapping("requestMatch")
 @RestController
+@RequestMapping("requestMatch")
 //@CrossOrigin // 可在 WebMvcConfigurer 的 addCorsMappings 中配置
 public class RequestMatchController {
 

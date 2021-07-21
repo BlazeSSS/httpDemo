@@ -14,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.io.*;
 import java.util.List;
 
-@RestController("file")
+@RestController
+@RequestMapping("file")
 public class FileDownloadController {
 
     @Autowired
